@@ -58,7 +58,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Config\SearchConfig.cs" />
+    <Compile Include="ViewModels\AsyncCommand.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\DelegateCommand.cs" />
+    <Compile Include="ViewModels\IAsyncCommand.cs" />
+    <Compile Include="ViewModels\IDelegateCommand.cs" />
     <Compile Include="ViewModels\SearchPageViewModel.cs" />
     <Compile Include="Views\SearchPage.xaml.cs">
       <DependentUpon>SearchPage.xaml</DependentUpon>
