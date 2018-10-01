@@ -7,20 +7,21 @@ namespace VkSearchWPF.ViewModels
     {
         private readonly Func<Task> execute;
         private readonly Predicate<object> canExecute;
-
-        private bool isExecuting;
+        private bool isExecuting = false;
 
         public event EventHandler CanExecuteChanged;
 
-        public AsyncCommand(Func<Task> execute, Predicate<object> canExecute = null)
+        public AsyncCommand(Func<Task> execute, Predicate<object> canExecute)
         {
             this.execute = execute;
             this.canExecute = canExecute;
         }
 
+        public AsyncCommand(Func<Task> execute) : this(execute, (obj) => true) { }
+
         public bool CanExecute(object parameter)
         {
-            return !isExecuting && (canExecute?.Invoke(parameter) ?? true);
+            return !isExecuting && canExecute(parameter);
         }
 
         public void Execute(object parameter)
