@@ -1,4 +1,4 @@
-# VKSearchWPF
+# VkSearchWPF
 Simple WPF application for searching VK users
 
 
