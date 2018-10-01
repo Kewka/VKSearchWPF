@@ -2,6 +2,9 @@
 
 namespace VkSearchWPF.Models
 {
+    /// <summary>
+    /// This class is intended to represent the user model of the VK API (<see href="https://vk.com/dev/objects/user" />).
+    /// </summary>
     public class UserModel
     {
         [JsonProperty("id")]
