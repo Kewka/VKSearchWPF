@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using VkSearchWPF.Models;
 
 namespace VkSearchWPF.Views
 {
@@ -23,6 +25,15 @@ namespace VkSearchWPF.Views
         public SearchPage()
         {
             InitializeComponent();
+        }
+
+        private void ItemDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is ListViewItem item)
+            {
+                var user = item.Content as UserModel;
+                Process.Start($"https://vk.com/id{user.Id}");
+            }
         }
     }
 }

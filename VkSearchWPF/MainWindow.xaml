@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:VkSearchWPF"
         mc:Ignorable="d"
         Height="480"
-        Width="640">
+        Width="640"
+        Title="VK Search">
     <Frame x:Name="NavigationFrame" NavigationUIVisibility="Hidden" />
 </Window>

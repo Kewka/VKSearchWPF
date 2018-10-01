@@ -4,12 +4,78 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:VkSearchWPF.Views"
+      xmlns:viewmodels="clr-namespace:VkSearchWPF.ViewModels"
+      xmlns:models="clr-namespace:VkSearchWPF.Models"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SearchPage"
       WindowTitle="VK Search">
-
+    <Page.DataContext>
+        <viewmodels:SearchPageViewModel />
+    </Page.DataContext>
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <!-- Search panel -->
+        <Border Grid.Row="0" BorderBrush="WhiteSmoke" BorderThickness="0,0,0,2" Padding="8">
+            <Grid>
+                <Grid.Resources>
+                    <Style x:Key="base" TargetType="Control">
+                        <Setter Property="FontSize" Value="16"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    </Style>
+                    <Style BasedOn="{StaticResource base}" TargetType="Button">
+                        <Setter Property="Margin" Value="8, 0, 0, 0"/>
+                    </Style>
+                    <Style BasedOn="{StaticResource base}" TargetType="TextBox"/>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" Text="{Binding Query, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <Button Grid.Column="1" Content="Search" Command="{Binding SearchCommand}"/>
+            </Grid>
+        </Border>
+        <TextBlock Grid.Row="1" Padding="8" Text="{Binding Count, StringFormat='Results: {0}'}" />
+        <ListView Grid.Row="2" ItemsSource="{Binding Results, Mode=OneWay}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="Padding" Value="4" />
+                    <EventSetter Event="MouseDoubleClick" Handler="ItemDoubleClick"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate DataType="{x:Type models:UserModel}">
+                    <!-- User Item Template -->
+                    <Grid>
+                        <Grid.Resources>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Padding" Value="8, 0" />
+                                <Setter Property="FontSize" Value="14"/>
+                                <Setter Property="FontWeight" Value="SemiBold" />
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </Grid.Resources>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <!-- User avatar -->
+                        <Ellipse Grid.Column="0" Height="48" Width="48">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="{Binding PhotoUrl, Mode=OneWay}"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <!-- User name -->
+                        <TextBlock Grid.Column="1" Text="{Binding FullName, Mode=OneWay}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </Page>
